@@ -131,11 +131,7 @@ def add(m):
 #######################################################################################################################################################################
 
 #######################################################################################################################################################################
-@bot.message_handler(content_types=['text', 'caption', 'username', 'tag', 'persian', 'english', 'filters', 'forward', 'link', 'sticker', 'location', 'contact', 'document', 'audio', 'video', 'photo'])
-def delete(m):
-    if not m.from_user.id in sudos or redis.sismember("admins"+str(m.chat.id), m.from_user.id) or database.sismember("promote"+str(msg.chat.id), msg.from_user.id):
-		if msg.location and database.get("location"+str(msg.chat.id)):
-			delmessage(token, msg.chat.id, msg.message_id)
+
 #######################################################################################################################################################################
 while True:
     try:
