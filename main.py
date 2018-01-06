@@ -17,7 +17,7 @@ from termcolor import colored
 from urllib import urlretrieve as download
 reload(sys)
 sys.setdefaultencoding("utf-8")
-redis = r.StrictRedis(host="localhost" , port=6379 , db=0)
+redis = r.StrictRedis(host="localhost" , port=6379)
 print colored("Getting token..." , "yellow")
 ################################################################################
 api_token = "434680910:AAH7__Bw_JxOUc5O_iW3lN9mDXYU_FNDaOE"
