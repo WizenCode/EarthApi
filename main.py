@@ -20,7 +20,7 @@ sys.setdefaultencoding("utf-8")
 redis = r.StrictRedis(host="localhost" , port=6379)
 print colored("Getting token..." , "yellow")
 ################################################################################
-api_token = "434680910:AAH7__Bw_JxOUc5O_iW3lN9mDXYU_FNDaOE"
+api_token = "516350074:AAEQk1HWHqZBVlQceUSyZ0YnyUd8mXg6d0M"
 sudos = [ 478026278 , 234169062 , 470777430 ]
 bot = telebot.TeleBot(token=api_token)
 print colored("Bot is online now!" , "green")
@@ -69,7 +69,7 @@ def promote(m):
     if userid in sudos:
         if not admins=="True" and replied:
             redis.sadd("admins" , "{}".format(prouser))
-            bot.send_message(chatid , "• User [ `{}` ] has been promoted as admin.".format(prouser) , parse_mode="Markdown")
+            bot.send_message(chatid , "• User ( `{}` ) has been promoted as admin.".format(prouser) , parse_mode="Markdown")
         else:
             bot.send_message(chatid , "• User [ `{}` ] is already an admin of the bot.".format(prouser) , parse_mode="Markdown")
     else:
