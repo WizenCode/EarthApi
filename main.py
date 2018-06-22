@@ -164,7 +164,7 @@ def photolock(m):
     userid = m.from_user.id
     chatid = m.chat.id
     chat = m.chat.type
-    mesid = m.message.message_id
+    mesid = m.message_id
     groups = str(redis.sismember("groups" , "{}".format(chatid)))
     if chat=="supergroup":
         if groups=="True":
