@@ -170,7 +170,7 @@ def photolock(m):
                 if userid not in sudos or bot.get_chat_member(chatid , userid).status=="member":
                     bot.delete_message(chatid , m.message_id)
 #######################################################################################################################################################################
-@bot.message_handler(commands=['lock photo'])
+@bot.message_handler(commands=['lock_photo'])
 def add(m):
     userid = m.from_user.id
     chatid = m.chat.id
