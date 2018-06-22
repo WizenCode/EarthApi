@@ -20,7 +20,7 @@ sys.setdefaultencoding("utf-8")
 redis = r.StrictRedis(host="localhost" , port=6379)
 print colored("Getting token..." , "yellow")
 ################################################################################
-api_token = "516350074:AAEQk1HWHqZBVlQceUSyZ0YnyUd8mXg6d0M"
+api_token = "601270288:AAHfClZ7pKBLno4lI01fNQYOCfNWBElbhvQ"
 sudos = [ 478026278 , 234169062 , 470777430 ]
 bot = telebot.TeleBot(token=api_token)
 print colored("Bot is online now!" , "green")
