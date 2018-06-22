@@ -25,7 +25,61 @@ sudos = [ 478026278 , 234169062 , 470777430 ]
 bot = telebot.TeleBot(token=api_token)
 print colored("Bot is online now!" , "green")
 ################################################################################
-
+def lockphoto(m):
+    if str(redis.sismember("photo" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockvideo(m):
+    if str(redis.sismember("video" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockvoice(m):
+    if str(redis.sismember("voice" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def locktext(m):
+    if str(redis.sismember("text" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockgif(m):
+    if str(redis.sismember("gif" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def locksticker(m):
+    if str(redis.sismember("sticker" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockmusic(m):
+    if str(redis.sismember("music" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def locklocation(m):
+    if str(redis.sismember("location" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockcontact(m):
+    if str(redis.sismember("contact" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def locklink(m):
+    if str(redis.sismember("link" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
+def lockgame(m):
+    if str(redis.sismember("game" , m))=="True":
+        return "LOCKED"
+    else:
+        return "UNLOCKED"
 #######################################################################################################################################################################
 @bot.message_handler(commands=['start'])
 def starting(m):
@@ -33,11 +87,10 @@ def starting(m):
     chatid = m.chat.id
     redis.sadd("members" , "{}".format(userid))
     markup = types.InlineKeyboardMarkup()
-    link = types.InlineKeyboardButton(text="• Contact us •" , url="https://t.me/princedard")
-    channel = types.InlineKeyboardButton(text="• Creator channel •" , url="https://t.me/earthteamrebot")
+    link = types.InlineKeyboardButton(text="⌥ C H A N N E L" , url="https://t.me/kingtgteam")
     markup.add(link)
-    bot.send_message( chatid , """• Welcome to EARTH api bot...
-*Locks are :* `
+    bot.send_message( chatid , """⌥ Welcome to KING api bot...
+*⌥ Locks are :* `
 > Photo
 > Video
 > Gif
@@ -54,48 +107,13 @@ def starting(m):
 > Tags / Usernames
 and more...
 `
-_For buy this anti vandal bot you need contact us!_
-
-Buy method : Charge | Payment | ATMs
-""" , parse_mode="Markdown" , reply_markup=markup)
-#######################################################################################################################################################################
-@bot.message_handler(commands=['promote'])
-def promote(m):
-    userid = m.from_user.id
-    chatid = m.chat.id
-    replied = m.reply_to_message
-    prouser = m.reply_to_message.from_user.id
-    admins = str(redis.sismember("admins" , "{}".format(prouser)))
-    if userid in sudos:
-        if not admins=="True" and replied:
-            redis.sadd("admins" , "{}".format(prouser))
-            bot.send_message(chatid , "• User ( `{}` ) has been promoted as admin.".format(prouser) , parse_mode="Markdown")
-        else:
-            bot.send_message(chatid , "• User [ `{}` ] is already an admin of the bot.".format(prouser) , parse_mode="Markdown")
-    else:
-        bot.send_message(chatid , "• You are not sudo." , parse_mode="Markdown")
-#######################################################################################################################################################################
-@bot.message_handler(commands=['demote'])
-def demote(m):
-    userid = m.from_user.id
-    chatid = m.chat.id
-    replied = m.reply_to_message
-    prouser = m.reply_to_message.from_user.id
-    admins = str(redis.sismember("admins" , "{}".format(prouser)))
-    if userid in sudos:
-        if admins=="True" and replied:
-            redis.srem("admins" , "{}".format(prouser))
-            bot.send_message(chatid , "• User [ `{}` ] has been demoted.".format(prouser) , parse_mode="Markdown")
-        else:
-            bot.send_message(chatid , "• User [ `{}` ] is not already an admin of the bot.".format(prouser) , parse_mode="Markdown")
-    else:
-        bot.send_message(chatid , "• You are not sudo." , parse_mode="Markdown")
+_⌥ Enjoy it for free!_""" , parse_mode="Markdown" , reply_markup=markup)
 #######################################################################################################################################################################
 @bot.message_handler(commands=['ping'])
 def ping(m):
     userid = m.from_user.id
     chatid = m.chat.id
-    bot.send_message(chatid , "• Bot is online.")
+    bot.send_message(chatid , "*⌥ KING IS ONLINE AT ALL THE TIME!*" ,"Markdown")
 #######################################################################################################################################################################
 @bot.message_handler(commands=['add'])
 def add(m):
@@ -103,14 +121,14 @@ def add(m):
     chatid = m.chat.id
     chat = m.chat.type
     groups = str(redis.sismember("groups" , "{}".format(chatid)))
-    if userid in sudos and chat=="supergroup":
+    if (userid in sudos or bot.get_chat_member(chatid , userid).status!="member") and chat=="supergroup":
         if not groups=="True":
             redis.sadd("groups" , "{}".format(chatid))
-            bot.send_message(chatid , "• Group [ `{}` ] has been added to database.".format(chatid) , parse_mode="Markdown")
+            bot.send_message(chatid , "*⌥ Supergroup {} has been added to database.*".format(chatid) , parse_mode="Markdown")
         else:
-            bot.send_message(chatid , "• Group [ `{}` ] is already added to database.".format(chatid) , parse_mode="Markdown")
+            bot.send_message(chatid , "*⌥ Supergroup {} is alreay in database.*".format(chatid) , parse_mode="Markdown")
     else:
-        bot.send_message(chatid , "• You are not sudo." , parse_mode="Markdown")
+        bot.send_message(chatid , "*⌥ You are not admin or chat in not a supergroup!*"  , parse_mode="Markdown")
 #######################################################################################################################################################################
 @bot.message_handler(commands=['rem'])
 def add(m):
@@ -118,16 +136,27 @@ def add(m):
     chatid = m.chat.id
     chat = m.chat.type
     groups = str(redis.sismember("groups" , "{}".format(chatid)))
-    if userid in sudos and chat=="supergroup":
+    if (userid in sudos or bot.get_chat_member(chatid , userid).status!="member") and chat=="supergroup":
         if groups=="True":
             redis.srem("groups" , "{}".format(chatid))
-            bot.send_message(chatid , "• Group [ `{}` ] has been removed from database.".format(chatid) , parse_mode="Markdown")
+            bot.send_message(chatid , "*⌥ Supergroup {} has been removed from database.*".format(chatid) , parse_mode="Markdown")
         else:
-            bot.send_message(chatid , "• Group [ `{}` ] is not already added to database.".format(chatid) , parse_mode="Markdown")
+            bot.send_message(chatid , "*⌥ Supergroup is not one of my groups.*" , parse_mode="Markdown")
     else:
-        bot.send_message(chatid , "• You are not sudo." , parse_mode="Markdown")
+        bot.send_message(chatid , "*⌥ You are not admin or chat in not a supergroup!*"  , parse_mode="Markdown")
 #######################################################################################################################################################################
-
+@bot.message_handler(commands=['settings'])
+def add(m):
+    userid = m.from_user.id
+    chatid = m.chat.id
+    chat = m.chat.type
+    groups = str(redis.sismember("groups" , "{}".format(chatid)))
+    if (userid in sudos or bot.get_chat_member(chatid , userid).status!="member") and chat=="supergroup":
+        if groups=="True":
+            bot.send_message(chatid , """*⌥ PHOTO : {}
+*""".format(lockphoto(chatid)) , parse_mode="Markdown")
+    else:
+        bot.send_message(chatid , "*⌥ You are not admin or chat in not a supergroup!*" , parse_mode="Markdown")
 #######################################################################################################################################################################
 
 #######################################################################################################################################################################
