@@ -158,9 +158,28 @@ def add(m):
     else:
         bot.send_message(chatid , "*⌥ You are not admin or chat in not a supergroup!*" , parse_mode="Markdown")
 #######################################################################################################################################################################
-
+@bot.message_handler(content_types=['photo'])
+def photolock(m):
+    userid = m.from_user.id
+    chatid = m.chat.id
+    chat = m.chat.type
+    groups = str(redis.sismember("groups" , "{}".format(chatid)))
+    if chat=="supergroup":
+        if groups=="True":
+            if lockphoto=="LOCKED":
+                if userid not in sudos or bot.get_chat_member(chatid , userid).status=="member":
+                    bot.delete_message(chatid , m.message_id)
 #######################################################################################################################################################################
-
+@bot.message_handler(commands=['lock photo'])
+def add(m):
+    userid = m.from_user.id
+    chatid = m.chat.id
+    chat = m.chat.type
+    groups = str(redis.sismember("groups" , "{}".format(chatid)))
+    if (userid in sudos or bot.get_chat_member(chatid , userid).status!="member") and chat=="supergroup":
+        if groups=="True":
+            redis.sadd("photo" , chatid)
+            bot.send_message(chatid , "*⌥ Photo locked!*")
 #######################################################################################################################################################################
 while True:
     try:
