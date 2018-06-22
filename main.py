@@ -12,6 +12,7 @@ import redis as r
 import requests as req
 from telebot import util
 from telebot import types
+from telebot import apihelper
 from random import randint
 from termcolor import colored
 from urllib import urlretrieve as download
@@ -163,12 +164,13 @@ def photolock(m):
     userid = m.from_user.id
     chatid = m.chat.id
     chat = m.chat.type
+    mesid = m.message.message_id
     groups = str(redis.sismember("groups" , "{}".format(chatid)))
     if chat=="supergroup":
         if groups=="True":
             if lockphoto=="LOCKED":
                 if userid not in sudos or bot.get_chat_member(chatid , userid).status=="member":
-                    bot.delete_message(chatid , m.message_id)
+                    bot.delete_message(chatid , mesid)
 #######################################################################################################################################################################
 @bot.message_handler(commands=['lock_photo'])
 def add(m):
@@ -179,7 +181,7 @@ def add(m):
     if (userid in sudos or bot.get_chat_member(chatid , userid).status!="member") and chat=="supergroup":
         if groups=="True":
             redis.sadd("photo" , chatid)
-            bot.send_message(chatid , "*⌥ Photo locked!*")
+            bot.send_message(chatid , "*⌥ Photo locked!*" , "Markdown")
 #######################################################################################################################################################################
 while True:
     try:
