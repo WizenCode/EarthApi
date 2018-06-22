@@ -169,7 +169,9 @@ def photolock(m):
     if chat=="supergroup":
         if groups=="True":
             if lockphoto=="LOCKED":
-                if userid not in sudos or bot.get_chat_member(chatid , userid).status=="member":
+                if userid in sudos or bot.get_chat_member(chatid , userid).status!="member":
+                    print "Admin bood baw"
+                else:
                     bot.delete_message(chatid , mesid)
 #######################################################################################################################################################################
 @bot.message_handler(commands=['lock_photo'])
