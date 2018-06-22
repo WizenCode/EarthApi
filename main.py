@@ -168,7 +168,7 @@ def photolock(m):
     groups = str(redis.sismember("groups" , "{}".format(chatid)))
     if chat=="supergroup":
         if groups=="True":
-            if lockphoto=="LOCKED" and m.photo:
+            if lockphoto(chatid)=="LOCKED":
                 if userid in sudos or bot.get_chat_member(chatid , userid).status!="member":
                     print "Admin bood baw"
                 else:
